@@ -1,0 +1,6 @@
+graal {
+  mainClass 'com.github.trevorwhitney.starter.App'
+  outputName 'starter'
+  graalVersion '20.2.0'
+  javaVersion '11'
+}
