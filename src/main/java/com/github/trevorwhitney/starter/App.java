@@ -35,11 +35,7 @@ public class App implements Callable<Integer> {
   @Override
   public Integer call() {
     Logger parent = Logger.getLogger("");
-    Level targetLevel = Level.WARNING;
-    if (verbose) {
-      targetLevel = Level.FINEST;
-    }
-
+    Level targetLevel = verbose ? Level.FINEST : Level.WARNING;
     parent.setLevel(targetLevel);
     for (Handler handler : parent.getHandlers()) {
       handler.setLevel(targetLevel);
