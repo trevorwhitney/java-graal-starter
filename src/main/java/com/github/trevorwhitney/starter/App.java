@@ -1,7 +1,7 @@
 package com.github.trevorwhitney.starter;
 
 import java.util.concurrent.Callable;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
 import picocli.CommandLine;
@@ -13,7 +13,7 @@ import picocli.CommandLine.Option;
     description = "command line starter app",
     version = "0.1.0",
     mixinStandardHelpOptions = true)
-@Log4j2
+@Slf4j
 public class App implements Callable<Integer> {
 
   @Option(
@@ -22,10 +22,7 @@ public class App implements Callable<Integer> {
   private boolean verbose;
 
   public static void main(String[] args) {
-    String[] hardCodedArgs = new String[]{"-v"};
-    int exitCode = new CommandLine(new App()).execute(hardCodedArgs);
-
-//    int exitCode = new CommandLine(new App()).execute(args);
+    int exitCode = new CommandLine(new App()).execute(args);
     System.exit(exitCode);
   }
 
