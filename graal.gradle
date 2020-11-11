@@ -3,4 +3,6 @@ graal {
   outputName 'starter'
   graalVersion '20.2.0'
   javaVersion '11'
+
+  option "--no-fallback"
 }

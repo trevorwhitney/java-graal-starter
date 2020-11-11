@@ -16,6 +16,8 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation("org.projectlombok:lombok:1.18.16")
     implementation("org.apache.commons:commons-lang3:3.11")
+    implementation("org.slf4j:slf4j-api:1.7.30")
+    implementation("org.slf4j:slf4j-jdk14:1.7.30")
 
     annotationProcessor("info.picocli:picocli-codegen:4.1.0")
 

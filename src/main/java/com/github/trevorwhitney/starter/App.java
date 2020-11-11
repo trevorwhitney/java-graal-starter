@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -14,7 +14,7 @@ import picocli.CommandLine.Option;
     description = "command line starter app",
     version = "0.1.0",
     mixinStandardHelpOptions = true)
-@Log
+@Slf4j
 public class App implements Callable<Integer> {
 
   static {
@@ -44,7 +44,7 @@ public class App implements Callable<Integer> {
     try {
       _call();
     } catch (Exception e) {
-      log.log(java.util.logging.Level.SEVERE, "Execution failed", e);
+      log.error("Execution failed", e);
       return 1;
     }
 
@@ -52,6 +52,6 @@ public class App implements Callable<Integer> {
   }
 
   private void _call() {
-    log.log(java.util.logging.Level.FINE, "Starting App");
+    log.info("Starting app");
   }
 }
