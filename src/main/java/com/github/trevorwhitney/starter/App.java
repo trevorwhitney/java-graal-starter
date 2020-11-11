@@ -1,9 +1,10 @@
 package com.github.trevorwhitney.starter;
 
 import java.util.concurrent.Callable;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lombok.extern.java.Log;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -13,8 +14,13 @@ import picocli.CommandLine.Option;
     description = "command line starter app",
     version = "0.1.0",
     mixinStandardHelpOptions = true)
-@Slf4j
+@Log
 public class App implements Callable<Integer> {
+
+  static {
+    System.setProperty("java.util.logging.SimpleFormatter.format",
+        "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+  }
 
   @Option(
       names = {"-v", "--verbose"},
@@ -28,16 +34,21 @@ public class App implements Callable<Integer> {
 
   @Override
   public Integer call() {
+    Logger parent = Logger.getLogger("");
+    Level targetLevel = Level.WARNING;
     if (verbose) {
-      Configurator.setLevel("com.github.trevorwhitney.starter", Level.DEBUG);
-    } else {
-      Configurator.setLevel("com.github.trevorwhitney.starter", Level.WARN);
+      targetLevel = Level.FINEST;
+    }
+
+    parent.setLevel(targetLevel);
+    for (Handler handler : parent.getHandlers()) {
+      handler.setLevel(targetLevel);
     }
 
     try {
       _call();
     } catch (Exception e) {
-      log.error("Execution failed", e);
+      log.log(java.util.logging.Level.SEVERE, "Execution failed", e);
       return 1;
     }
 
@@ -45,6 +56,6 @@ public class App implements Callable<Integer> {
   }
 
   private void _call() {
-    log.debug("Starting app");
+    log.log(java.util.logging.Level.FINE, "Starting App");
   }
 }
